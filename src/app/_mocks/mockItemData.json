@@ -1,0 +1,280 @@
+{
+    "products": [
+      {
+        "id": "prod1",
+        "name": "Product 1",
+        "priceInBaht": 1000,
+        "itemsInStock": 50,
+        "filePath": "/files/prod1",
+        "imagePath": "/images/prod1.png",
+        "description": "Description for Product 1",
+        "isAvailableForPurchase": true,
+        "createdAt": "2023-06-01T00:00:00Z",
+        "updatedAt": "2023-06-01T00:00:00Z"
+      },
+      {
+        "id": "prod2",
+        "name": "Product 2",
+        "priceInBaht": 2000,
+        "itemsInStock": 30,
+        "filePath": "/files/prod2",
+        "imagePath": "/images/prod2.png",
+        "description": "Description for Product 2",
+        "isAvailableForPurchase": true,
+        "createdAt": "2023-06-02T00:00:00Z",
+        "updatedAt": "2023-06-02T00:00:00Z"
+      },
+      {
+        "id": "prod3",
+        "name": "Product 3",
+        "priceInBaht": 3000,
+        "itemsInStock": 20,
+        "filePath": "/files/prod3",
+        "imagePath": "/images/prod3.png",
+        "description": "Description for Product 3",
+        "isAvailableForPurchase": true,
+        "createdAt": "2023-06-03T00:00:00Z",
+        "updatedAt": "2023-06-03T00:00:00Z"
+      },
+      {
+        "id": "prod4",
+        "name": "Product 4",
+        "priceInBaht": 4000,
+        "itemsInStock": 10,
+        "filePath": "/files/prod4",
+        "imagePath": "/images/prod4.png",
+        "description": "Description for Product 4",
+        "isAvailableForPurchase": true,
+        "createdAt": "2023-06-04T00:00:00Z",
+        "updatedAt": "2023-06-04T00:00:00Z"
+      },
+      {
+        "id": "prod5",
+        "name": "Product 5",
+        "priceInBaht": 5000,
+        "itemsInStock": 5,
+        "filePath": "/files/prod5",
+        "imagePath": "/images/prod5.png",
+        "description": "Description for Product 5",
+        "isAvailableForPurchase": true,
+        "createdAt": "2023-06-05T00:00:00Z",
+        "updatedAt": "2023-06-05T00:00:00Z"
+      },
+      {
+        "id": "prod6",
+        "name": "Product 6",
+        "priceInBaht": 6000,
+        "itemsInStock": 2,
+        "filePath": "/files/prod6",
+        "imagePath": "/images/prod6.png",
+        "description": "Description for Product 6",
+        "isAvailableForPurchase": true,
+        "createdAt": "2023-06-06T00:00:00Z",
+        "updatedAt": "2023-06-06T00:00:00Z"
+      }
+    ],
+    "users": [
+      {
+        "id": "user1",
+        "email": "user1@example.com",
+        "createdAt": "2023-06-01T00:00:00Z",
+        "updatedAt": "2023-06-01T00:00:00Z"
+      },
+      {
+        "id": "user2",
+        "email": "user2@example.com",
+        "createdAt": "2023-06-02T00:00:00Z",
+        "updatedAt": "2023-06-02T00:00:00Z"
+      },
+      {
+        "id": "user3",
+        "email": "user3@example.com",
+        "createdAt": "2023-06-03T00:00:00Z",
+        "updatedAt": "2023-06-03T00:00:00Z"
+      },
+      {
+        "id": "user4",
+        "email": "user4@example.com",
+        "createdAt": "2023-06-04T00:00:00Z",
+        "updatedAt": "2023-06-04T00:00:00Z"
+      },
+      {
+        "id": "user5",
+        "email": "user5@example.com",
+        "createdAt": "2023-06-05T00:00:00Z",
+        "updatedAt": "2023-06-05T00:00:00Z"
+      },
+      {
+        "id": "user6",
+        "email": "user6@example.com",
+        "createdAt": "2023-06-06T00:00:00Z",
+        "updatedAt": "2023-06-06T00:00:00Z"
+      }
+    ],
+    "locations": [
+      {
+        "id": "loc1",
+        "name": "Location 1",
+        "createdAt": "2023-06-01T00:00:00Z",
+        "updatedAt": "2023-06-01T00:00:00Z",
+        "latCoords": "13.7563",
+        "lonCoords": "100.5018"
+      },
+      {
+        "id": "loc2",
+        "name": "Location 2",
+        "createdAt": "2023-06-02T00:00:00Z",
+        "updatedAt": "2023-06-02T00:00:00Z",
+        "latCoords": "34.0522",
+        "lonCoords": "-118.2437"
+      },
+      {
+        "id": "loc3",
+        "name": "Location 3",
+        "createdAt": "2023-06-03T00:00:00Z",
+        "updatedAt": "2023-06-03T00:00:00Z",
+        "latCoords": "51.5074",
+        "lonCoords": "-0.1278"
+      }
+    ],
+    "discountCodes": [
+      {
+        "id": "disc1",
+        "code": "DISC10",
+        "discountAmount": 10,
+        "discountType": "percentage",
+        "uses": 0,
+        "isActive": true,
+        "allProducts": false,
+        "createdAt": "2023-06-01T00:00:00Z",
+        "limit": 100,
+        "expiresAt": "2023-12-31T00:00:00Z"
+      },
+      {
+        "id": "disc2",
+        "code": "DISC20",
+        "discountAmount": 20,
+        "discountType": "percentage",
+        "uses": 0,
+        "isActive": true,
+        "allProducts": false,
+        "createdAt": "2023-06-02T00:00:00Z",
+        "limit": 50,
+        "expiresAt": "2023-12-31T00:00:00Z"
+      },
+      {
+        "id": "disc3",
+        "code": "DISC50",
+        "discountAmount": 50,
+        "discountType": "percentage",
+        "uses": 0,
+        "isActive": true,
+        "allProducts": true,
+        "createdAt": "2023-06-03T00:00:00Z",
+        "limit": 20,
+        "expiresAt": "2023-12-31T00:00:00Z"
+      }
+    ],
+    "orders": [
+      {
+        "id": "order1",
+        "pricePaidInBaht": 900,
+        "createdAt": "2023-06-01T00:00:00Z",
+        "updatedAt": "2023-06-01T00:00:00Z",
+        "userId": "user1",
+        "productId": "prod1",
+        "locationId": "loc1",
+        "discountCodeId": "disc1"
+      },
+      {
+        "id": "order2",
+        "pricePaidInBaht": 1800,
+        "createdAt": "2023-06-02T00:00:00Z",
+        "updatedAt": "2023-06-02T00:00:00Z",
+        "userId": "user2",
+        "productId": "prod2",
+        "locationId": "loc2",
+        "discountCodeId": "disc2"
+      },
+      {
+        "id": "order3",
+        "pricePaidInBaht": 2700,
+        "createdAt": "2023-06-03T00:00:00Z",
+        "updatedAt": "2023-06-03T00:00:00Z",
+        "userId": "user3",
+        "productId": "prod3",
+        "locationId": "loc3",
+        "discountCodeId": "disc3"
+    },
+    {
+      "id": "order4",
+      "pricePaidInBaht": 4000,
+      "createdAt": "2023-06-04T00:00:00Z",
+      "updatedAt": "2023-06-04T00:00:00Z",
+      "userId": "user4",
+      "productId": "prod4",
+      "locationId": "loc1",
+      "discountCodeId": null
+    },
+    {
+      "id": "order5",
+      "pricePaidInBaht": 5000,
+      "createdAt": "2023-06-05T00:00:00Z",
+      "updatedAt": "2023-06-05T00:00:00Z",
+      "userId": "user5",
+      "productId": "prod5",
+      "locationId": "loc2",
+      "discountCodeId": null
+    },
+    {
+      "id": "order6",
+      "pricePaidInBaht": 6000,
+      "createdAt": "2023-06-06T00:00:00Z",
+      "updatedAt": "2023-06-06T00:00:00Z",
+      "userId": "user6",
+      "productId": "prod6",
+      "locationId": "loc3",
+      "discountCodeId": null
+    },
+    {
+      "id": "order7",
+      "pricePaidInBaht": 950,
+      "createdAt": "2023-06-07T00:00:00Z",
+      "updatedAt": "2023-06-07T00:00:00Z",
+      "userId": "user1",
+      "productId": "prod1",
+      "locationId": "loc1",
+      "discountCodeId": null
+    },
+    {
+      "id": "order8",
+      "pricePaidInBaht": 1900,
+      "createdAt": "2023-06-08T00:00:00Z",
+      "updatedAt": "2023-06-08T00:00:00Z",
+      "userId": "user2",
+      "productId": "prod2",
+      "locationId": "loc2",
+      "discountCodeId": null
+    },
+    {
+      "id": "order9",
+      "pricePaidInBaht": 2850,
+      "createdAt": "2023-06-09T00:00:00Z",
+      "updatedAt": "2023-06-09T00:00:00Z",
+      "userId": "user3",
+      "productId": "prod3",
+      "locationId": "loc3",
+      "discountCodeId": null
+    },
+    {
+      "id": "order10",
+      "pricePaidInBaht": 4000,
+      "createdAt": "2023-06-10T00:00:00Z",
+      "updatedAt": "2023-06-10T00:00:00Z",
+      "userId": "user4",
+      "productId": "prod4",
+      "locationId": "loc1",
+      "discountCodeId": null
+    }
+  ]
+}
