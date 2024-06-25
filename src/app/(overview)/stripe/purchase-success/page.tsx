@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-// import db from '@/db/db';
+import db from '@/database/database';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -19,11 +19,16 @@ export default async function SuccessPage({
 
   if (paymentIntent.metadata.productId == null) return notFound();
 
-  const product = data.products.find(
+  //TODO: Add this when Admin implemented
+  const product = await db.product.findUnique({
+    where: { id: paymentIntent.metadata.productId },
+  });
+
+  const mockProduct = data.products.find(
     (product) => product.id === paymentIntent.metadata.productId
   );
 
-  if (product == null) return notFound();
+  if (mockProduct == null) return notFound();
 
   const isSuccess = paymentIntent.status === 'succeeded';
 
@@ -35,28 +40,45 @@ export default async function SuccessPage({
       <div className='flex gap-4 items-center'>
         <div className='aspect-video flex-shrink-0 w-1/3 relative'>
           <Image
-            src={product.imagePath}
+            src={mockProduct.imagePath}
             fill
-            alt={product.name}
+            alt={mockProduct.name}
             className='object-cover'
           />
         </div>
         <div>
-          <h1 className='text-2xl font-bold'>{product.name}</h1>
+          <h1 className='text-2xl font-bold'>{mockProduct.name}</h1>
           <div className='line-clamp-3 text-muted-foreground'>
-            {product.description}
+            {mockProduct.description}
           </div>
-          {isSuccess ? (
-            <p>Well done</p>
-          ) : (
-            <>
-              <Button className='mt-4' size='lg'>
-                <Link href={`/products/${product.id}/purchase`}>Try Again</Link>
-              </Button>
-            </>
-          )}
+          <Button className='mt-4' size='lg' asChild>
+            {isSuccess ? (
+              <a
+                href={`/products/download/${await createDownloadVerification(
+                  mockProduct.id
+                )}`}
+              >
+                Download
+              </a>
+            ) : (
+              <Link href={`/products/${mockProduct.id}/purchase`}>
+                Try Again
+              </Link>
+            )}
+          </Button>
         </div>
       </div>
     </div>
   );
+}
+
+async function createDownloadVerification(productId: string) {
+  return (
+    await db.downloadVerification.create({
+      data: {
+        productId,
+        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      },
+    })
+  ).id;
 }

@@ -2,15 +2,17 @@ import { ProductCard, ProductCardSkeleton } from '@/components/ProductCard';
 import { Suspense } from 'react';
 import data from '@/app/_mocks/mockItemData.json';
 import { Product } from '@/types/types';
+import db from '@/database/database';
+import { cache } from '@/lib/cache';
 
-// const getProducts = cache(() => {
-//     return db.product.findMany({
-//       where: { isAvailableForPurchase: true },
-//       orderBy: { name: 'asc' },
-//     });
-//   }, ['/products', 'getProducts']);
+const getProducts = cache(() => {
+  return db.product.findMany({
+    where: { isAvailableForPurchase: true },
+    orderBy: { name: 'asc' },
+  });
+}, ['/products', 'getProducts']);
 
-const getProducts = (): Product[] => {
+const getMockProducts = (): Product[] => {
   return data.products.filter((product) => {
     product.isAvailableForPurchase === true;
   }) satisfies Product[];
@@ -38,9 +40,11 @@ export default function ProductsPage() {
 }
 
 function ProductsSuspense() {
+  //TODO: WHen admin implemented remove mock
+  const mockProducts = getMockProducts();
   const products = getProducts();
 
-  return products.map((product) => (
+  return mockProducts.map((product) => (
     <ProductCard key={product.id} {...product} />
   ));
 }

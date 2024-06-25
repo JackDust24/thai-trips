@@ -4,40 +4,42 @@ import { lusitana } from '@/app/ui/fonts';
 import { ItemGridSection } from './_components/ItemGridSection';
 import data from '@/app/_mocks/mockItemData.json';
 import { cache } from '@/lib/cache';
-import { Product } from '@/types/types';
+import { Product as MockProduct } from '@/types/types';
+import { Product } from '@prisma/client';
+import db from '@/database/database';
 
-// const getMostPopularProducts = cache(
-//   () => {
-//       return db.product.findMany({
-//         where: { isAvailableForPurchase: true },
-//         orderBy: { orders: { _count: 'desc' } },
-//         take: 6,
-//       });
-//   },
-//   ['/', 'getMostPopularProducts'],
-//   { revalidate: 60 * 60 * 24 }
-// );
+//TODO: Implement in next commit - when Admin added
+const getMostPopularProducts = cache(
+  () => {
+    return db.product.findMany({
+      where: { isAvailableForPurchase: true },
+      orderBy: { orders: { _count: 'desc' } },
+      take: 6,
+    });
+  },
+  ['/', 'getMostPopularProducts'],
+  { revalidate: 60 * 60 * 24 }
+);
 
-const getPopularItems = (): Product[] => {
+const getNewestProducts = cache(() => {
+  return db.product.findMany({
+    where: { isAvailableForPurchase: true },
+    orderBy: { createdAt: 'desc' },
+    take: 6,
+  });
+}, ['/', 'getNewestProducts']);
+
+const getPopularItems = (): MockProduct[] => {
   return data.products.filter((product) => {
     product.isAvailableForPurchase === true;
-  }) satisfies Product[];
+  }) satisfies MockProduct[];
 };
 
-const getNewestItems = (): Product[] => {
-  return data.products.slice(-3) satisfies Product[];
+const getNewestItems = (): MockProduct[] => {
+  return data.products.slice(-3) satisfies MockProduct[];
 };
-
-//   const getNewestProducts = cache(() => {
-//     return db.product.findMany({
-//       where: { isAvailableForPurchase: true },
-//       orderBy: { createdAt: 'desc' },
-//       take: 6,
-//     });
-//   }, ['/', 'getNewestProducts']);
 
 export default function Home() {
-  console.log(data.products);
   return (
     <main className='flex min-h-screen flex-col px-8'>
       <div className='flex relative h-20 mb-10 shrink-0 items-end rounded-lg bg-[#2962FF] p-4 md:h-80 shadow-xl'>
@@ -61,10 +63,7 @@ export default function Home() {
           title='Most Popular'
           itemGridFetcher={getPopularItems}
         />
-        <ItemGridSection
-          title='Newest'
-          itemGridFetcher={getNewestItems}
-        />
+        <ItemGridSection title='Newest' itemGridFetcher={getNewestItems} />
       </div>
     </main>
   );

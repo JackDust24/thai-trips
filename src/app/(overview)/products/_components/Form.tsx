@@ -1,6 +1,5 @@
 'use client';
 import { createPaymentIntent } from '@/actions/orders';
-
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -10,8 +9,6 @@ import {
   CardTitle,
   CardFooter,
 } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { formatCurrency } from '@/lib/formatter';
 import {
   LinkAuthenticationElement,
@@ -19,7 +16,6 @@ import {
   useElements,
   useStripe,
 } from '@stripe/react-stripe-js';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 
 export function Form({
@@ -34,13 +30,10 @@ export function Form({
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>();
   const [email, setEmail] = useState<string>();
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    if (stripe == null || elements == null) return;
+    if (stripe == null || elements == null || email == null) return;
     setIsLoading(true);
 
     // Submit more via Stripe
