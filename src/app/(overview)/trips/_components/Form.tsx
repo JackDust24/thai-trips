@@ -20,10 +20,10 @@ import { FormEvent, useState } from 'react';
 
 export function Form({
   priceInBaht,
-  productId,
+  tripId,
 }: {
   priceInBaht: number;
-  productId: string;
+  tripId: string;
 }) {
   const stripe = useStripe(); // returns a reference to the Stripe instance
   const elements = useElements(); // pass the payment information collected by the Payment Element to the Stripe API
@@ -45,7 +45,7 @@ export function Form({
     }
 
     // tracks the process of collecting a payment
-    const paymentIntent = await createPaymentIntent(email, productId);
+    const paymentIntent = await createPaymentIntent(email, tripId);
     if (paymentIntent.error != null) {
       setErrorMessage(paymentIntent.error);
       setIsLoading(false);

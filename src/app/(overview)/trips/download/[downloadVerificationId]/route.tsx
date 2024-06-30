@@ -10,22 +10,20 @@ export async function GET(
 ) {
   const data = await db.downloadVerification.findUnique({
     where: { id: downloadVerificationId, expiresAt: { gt: new Date() } },
-    select: { product: { select: { filePath: true, name: true } } },
+    select: { trip: { select: { filePath: true, name: true } } },
   });
 
   if (data == null) {
-    return NextResponse.redirect(
-      new URL('/products/download/expired', req.url)
-    );
+    return NextResponse.redirect(new URL('/trips/download/expired', req.url));
   }
 
-  const { size } = await fs.stat(data.product.filePath);
-  const file = await fs.readFile(data.product.filePath);
-  const extension = data.product.filePath.split('.').pop();
+  const { size } = await fs.stat(data.trip.filePath);
+  const file = await fs.readFile(data.trip.filePath);
+  const extension = data.trip.filePath.split('.').pop();
 
   return new NextResponse(file, {
     headers: {
-      'Content-Disposition': `attachment; filename="${data.product.name}.${extension}"`,
+      'Content-Disposition': `attachment; filename="${data.trip.name}.${extension}"`,
       'Content-Length': size.toString(),
     },
   });

@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Product {
+model Trip {
   id                     String                 @id @default(uuid())
   name                   String
   priceInBaht            Int
@@ -23,7 +23,7 @@ model Product {
   updatedAt              DateTime               @updatedAt
   downloadVerifications  DownloadVerification[]
   orders                 Order[]
-  locations              Location[]             @relation("LocationToProduct")
+  locations              Location[]             @relation("LocationToTrip")
 }
 
 model User {
@@ -35,14 +35,14 @@ model User {
 }
 
 model Location {
-  id        String    @id @default(uuid())
-  name      String    @unique
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   latCoords String
   lonCoords String
   orders    Order[]
-  products  Product[] @relation("LocationToProduct")
+  trips     Trip[]   @relation("LocationToTrip")
 }
 
 model Order {
@@ -51,11 +51,11 @@ model Order {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   userId          String
-  productId       String
+  tripId          String
   locationId      String
   discountCodeId  String?
   location        Location @relation(fields: [locationId], references: [id])
-  product         Product  @relation(fields: [productId], references: [id])
+  trip            Trip     @relation(fields: [tripId], references: [id])
   user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
@@ -63,6 +63,6 @@ model DownloadVerification {
   id        String   @id @default(uuid())
   expiresAt DateTime
   createdAt DateTime @default(now())
-  productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  tripId    String
+  trip      Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
 }

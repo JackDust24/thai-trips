@@ -4,39 +4,39 @@ import { lusitana } from '@/app/ui/fonts';
 import { ItemGridSection } from './_components/ItemGridSection';
 import data from '@/app/_mocks/mockItemData.json';
 import { cache } from '@/lib/cache';
-import { Product as MockProduct } from '@/types/types';
-import { Product } from '@prisma/client';
+import { Trip as MockTrip } from '@/types/types';
+import { Trip } from '@prisma/client';
 import db from '@/database/database';
 
 //TODO: Implement in next commit - when Admin added
-const getMostPopularProducts = cache(
+const getMostPopularTrips = cache(
   () => {
-    return db.product.findMany({
+    return db.trip.findMany({
       where: { isAvailableForPurchase: true },
       orderBy: { orders: { _count: 'desc' } },
       take: 6,
     });
   },
-  ['/', 'getMostPopularProducts'],
+  ['/', 'getMostPopularTrips'],
   { revalidate: 60 * 60 * 24 }
 );
 
-const getNewestProducts = cache(() => {
-  return db.product.findMany({
+const getNewestTrips = cache(() => {
+  return db.trip.findMany({
     where: { isAvailableForPurchase: true },
     orderBy: { createdAt: 'desc' },
     take: 6,
   });
-}, ['/', 'getNewestProducts']);
+}, ['/', 'getNewestTrips']);
 
-const getPopularItems = (): MockProduct[] => {
-  return data.products.filter((product) => {
-    product.isAvailableForPurchase === true;
-  }) satisfies MockProduct[];
+const getPopularItems = (): MockTrip[] => {
+  return data.trips.filter((trip) => {
+    trip.isAvailableForPurchase === true;
+  }) satisfies MockTrip[];
 };
 
-const getNewestItems = (): MockProduct[] => {
-  return data.products.slice(-3) satisfies MockProduct[];
+const getNewestItems = (): MockTrip[] => {
+  return data.trips.slice(-3) satisfies MockTrip[];
 };
 
 export default function Home() {

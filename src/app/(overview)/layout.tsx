@@ -11,7 +11,7 @@ export default function Layout({
     <div className='bg-stone-100'>
       <Nav>
         <NavLink href='/'>Home</NavLink>
-        <NavLink href='/products'>Products</NavLink>
+        <NavLink href='/trips'>Trips</NavLink>
         <NavLink href='/orders'>My Orders</NavLink>
         <NavLink href='/locations'>Branches</NavLink>
       </Nav>

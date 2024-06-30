@@ -1,73 +1,73 @@
 {
-    "products": [
+    "trips": [
       {
         "id": "prod1",
-        "name": "Product 1",
+        "name": "Trip 1",
         "priceInBaht": 1000,
         "itemsInStock": 50,
         "filePath": "/files/prod1",
         "imagePath": "/images/prod1.png",
-        "description": "Description for Product 1",
+        "description": "Description for Trip 1",
         "isAvailableForPurchase": true,
         "createdAt": "2023-06-01T00:00:00Z",
         "updatedAt": "2023-06-01T00:00:00Z"
       },
       {
         "id": "prod2",
-        "name": "Product 2",
+        "name": "Trip 2",
         "priceInBaht": 2000,
         "itemsInStock": 30,
         "filePath": "/files/prod2",
         "imagePath": "/images/prod2.png",
-        "description": "Description for Product 2",
-        "isAvailableForPurchase": true,
+        "description": "Description for Trip 2",
+        "isAvailableForPurchase": false,
         "createdAt": "2023-06-02T00:00:00Z",
         "updatedAt": "2023-06-02T00:00:00Z"
       },
       {
         "id": "prod3",
-        "name": "Product 3",
+        "name": "Trip 3",
         "priceInBaht": 3000,
         "itemsInStock": 20,
         "filePath": "/files/prod3",
         "imagePath": "/images/prod3.png",
-        "description": "Description for Product 3",
+        "description": "Description for Trip 3",
         "isAvailableForPurchase": true,
         "createdAt": "2023-06-03T00:00:00Z",
         "updatedAt": "2023-06-03T00:00:00Z"
       },
       {
         "id": "prod4",
-        "name": "Product 4",
+        "name": "Trip 4",
         "priceInBaht": 4000,
         "itemsInStock": 10,
         "filePath": "/files/prod4",
         "imagePath": "/images/prod4.png",
-        "description": "Description for Product 4",
+        "description": "Description for Trip 4",
         "isAvailableForPurchase": true,
         "createdAt": "2023-06-04T00:00:00Z",
         "updatedAt": "2023-06-04T00:00:00Z"
       },
       {
         "id": "prod5",
-        "name": "Product 5",
+        "name": "Trip 5",
         "priceInBaht": 5000,
         "itemsInStock": 5,
         "filePath": "/files/prod5",
         "imagePath": "/images/prod5.png",
-        "description": "Description for Product 5",
+        "description": "Description for Trip 5",
         "isAvailableForPurchase": true,
         "createdAt": "2023-06-05T00:00:00Z",
         "updatedAt": "2023-06-05T00:00:00Z"
       },
       {
         "id": "prod6",
-        "name": "Product 6",
+        "name": "Trip 6",
         "priceInBaht": 6000,
         "itemsInStock": 2,
         "filePath": "/files/prod6",
         "imagePath": "/images/prod6.png",
-        "description": "Description for Product 6",
+        "description": "Description for Trip 6",
         "isAvailableForPurchase": true,
         "createdAt": "2023-06-06T00:00:00Z",
         "updatedAt": "2023-06-06T00:00:00Z"
@@ -145,7 +145,7 @@
         "discountType": "percentage",
         "uses": 0,
         "isActive": true,
-        "allProducts": false,
+        "allTrips": false,
         "createdAt": "2023-06-01T00:00:00Z",
         "limit": 100,
         "expiresAt": "2023-12-31T00:00:00Z"
@@ -157,7 +157,7 @@
         "discountType": "percentage",
         "uses": 0,
         "isActive": true,
-        "allProducts": false,
+        "allTrips": false,
         "createdAt": "2023-06-02T00:00:00Z",
         "limit": 50,
         "expiresAt": "2023-12-31T00:00:00Z"
@@ -169,7 +169,7 @@
         "discountType": "percentage",
         "uses": 0,
         "isActive": true,
-        "allProducts": true,
+        "allTrips": true,
         "createdAt": "2023-06-03T00:00:00Z",
         "limit": 20,
         "expiresAt": "2023-12-31T00:00:00Z"
@@ -182,7 +182,7 @@
         "createdAt": "2023-06-01T00:00:00Z",
         "updatedAt": "2023-06-01T00:00:00Z",
         "userId": "user1",
-        "productId": "prod1",
+        "tripId": "prod1",
         "locationId": "loc1",
         "discountCodeId": "disc1"
       },
@@ -192,7 +192,7 @@
         "createdAt": "2023-06-02T00:00:00Z",
         "updatedAt": "2023-06-02T00:00:00Z",
         "userId": "user2",
-        "productId": "prod2",
+        "tripId": "prod2",
         "locationId": "loc2",
         "discountCodeId": "disc2"
       },
@@ -202,7 +202,7 @@
         "createdAt": "2023-06-03T00:00:00Z",
         "updatedAt": "2023-06-03T00:00:00Z",
         "userId": "user3",
-        "productId": "prod3",
+        "tripId": "prod3",
         "locationId": "loc3",
         "discountCodeId": "disc3"
     },
@@ -212,7 +212,7 @@
       "createdAt": "2023-06-04T00:00:00Z",
       "updatedAt": "2023-06-04T00:00:00Z",
       "userId": "user4",
-      "productId": "prod4",
+      "tripId": "prod4",
       "locationId": "loc1",
       "discountCodeId": null
     },
@@ -222,7 +222,7 @@
       "createdAt": "2023-06-05T00:00:00Z",
       "updatedAt": "2023-06-05T00:00:00Z",
       "userId": "user5",
-      "productId": "prod5",
+      "tripId": "prod5",
       "locationId": "loc2",
       "discountCodeId": null
     },
@@ -232,7 +232,7 @@
       "createdAt": "2023-06-06T00:00:00Z",
       "updatedAt": "2023-06-06T00:00:00Z",
       "userId": "user6",
-      "productId": "prod6",
+      "tripId": "prod6",
       "locationId": "loc3",
       "discountCodeId": null
     },
@@ -242,7 +242,7 @@
       "createdAt": "2023-06-07T00:00:00Z",
       "updatedAt": "2023-06-07T00:00:00Z",
       "userId": "user1",
-      "productId": "prod1",
+      "tripId": "prod1",
       "locationId": "loc1",
       "discountCodeId": null
     },
@@ -252,7 +252,7 @@
       "createdAt": "2023-06-08T00:00:00Z",
       "updatedAt": "2023-06-08T00:00:00Z",
       "userId": "user2",
-      "productId": "prod2",
+      "tripId": "prod2",
       "locationId": "loc2",
       "discountCodeId": null
     },
@@ -262,7 +262,7 @@
       "createdAt": "2023-06-09T00:00:00Z",
       "updatedAt": "2023-06-09T00:00:00Z",
       "userId": "user3",
-      "productId": "prod3",
+      "tripId": "prod3",
       "locationId": "loc3",
       "discountCodeId": null
     },
@@ -272,7 +272,7 @@
       "createdAt": "2023-06-10T00:00:00Z",
       "updatedAt": "2023-06-10T00:00:00Z",
       "userId": "user4",
-      "productId": "prod4",
+      "tripId": "prod4",
       "locationId": "loc1",
       "discountCodeId": null
     }

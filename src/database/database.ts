@@ -13,4 +13,4 @@ const dbase = globalThis.prisma ?? prismaClientSingleton();
 
 export default dbase;
 
-if (process.env.NODE_ENV !== 'production') globalThis.prisma = dbase;
+if (process.env.NODE_ENV !== 'tripion') globalThis.prisma = dbase;

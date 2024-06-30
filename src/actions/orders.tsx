@@ -8,29 +8,29 @@ import data from '@/app/_mocks/mockItemData.json';
 const emailSchema = z.string().email();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
-export async function createPaymentIntent(email: string, productId: string) {
-  const product = await db.product.findUnique({ where: { id: productId } });
+export async function createPaymentIntent(email: string, tripId: string) {
+  const trip = await db.trip.findUnique({ where: { id: tripId } });
 
-  if (product == null) return { error: 'Unexpected Error' };
+  if (trip == null) return { error: 'Unexpected Error' };
 
   const existingOrder = await db.order.findFirst({
-    where: { user: { email }, productId },
+    where: { user: { email }, tripId },
     select: { id: true },
   });
 
   if (existingOrder != null) {
     return {
-      error: 'You have already purchased this product.',
+      error: 'You have already purchased this trip.',
     };
   }
 
-  const amount = product.priceInBaht;
+  const amount = trip.priceInBaht;
 
   const paymentIntent = await stripe.paymentIntents.create({
     amount,
     currency: 'THB',
     metadata: {
-      productId: product.id,
+      tripId: trip.id,
     },
   });
 
@@ -60,7 +60,7 @@ export async function emailOrderHistory(
           pricePaidInBaht: true,
           id: true,
           createdAt: true,
-          product: {
+          trip: {
             select: {
               id: true,
               name: true,
@@ -76,7 +76,7 @@ export async function emailOrderHistory(
   if (user == null) {
     return {
       message:
-        'Check your email to view your order history and download your products.',
+        'Check your email to view your order history and download your trips.',
     };
   }
 
@@ -87,7 +87,7 @@ export async function emailOrderHistory(
         await db.downloadVerification.create({
           data: {
             expiresAt: new Date(Date.now() + 24 * 1000 * 60 * 60),
-            productId: order.product.id,
+            tripId: order.trip.id,
           },
         })
       ).id,
@@ -95,6 +95,6 @@ export async function emailOrderHistory(
   });
 
   return {
-    message: 'Download your products.',
+    message: 'Download your trips.',
   };
 }

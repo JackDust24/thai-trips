@@ -3,6 +3,7 @@ import Stripe from 'stripe';
 import data from '@/app/_mocks/mockItemData.json';
 
 //TODO: Redo file
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 export async function POST(req: NextRequest) {
@@ -14,15 +15,15 @@ export async function POST(req: NextRequest) {
 
   if (event.type === 'charge.succeeded') {
     const charge = event.data.object;
-    const productId = charge.metadata.productId;
+    const tripId = charge.metadata.tripId;
     const email = charge.billing_details.email;
     const pricePaidInBaht = charge.amount;
     const locationId = '1';
 
-    const product = data.products.find((product) => product.id === productId);
+    const trip = data.trips.find((trip) => trip.id === tripId);
 
-    // const product = await db.product.findUnique({ where: { id: productId } });
-    if (product == null || email == null) {
+    // const trip = await db.trip.findUnique({ where: { id: tripId } });
+    if (trip == null || email == null) {
       return new NextResponse('Bad Request', { status: 400 });
     }
   }

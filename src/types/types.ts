@@ -1,4 +1,4 @@
-export type Product = {
+export type Trip = {
   id: string;
   name: string;
   priceInBaht: number;

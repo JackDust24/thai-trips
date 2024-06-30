@@ -19,7 +19,7 @@ export const mockSalesData = {
   numberOfSales: 3,
 };
 
-export const mockProductData = {
+export const mockTripData = {
   chartData: [
     {
       name: 'Hawk t-shirt',

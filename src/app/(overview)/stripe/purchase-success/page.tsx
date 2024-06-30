@@ -17,18 +17,18 @@ export default async function SuccessPage({
     searchParams.payment_intent
   );
 
-  if (paymentIntent.metadata.productId == null) return notFound();
+  if (paymentIntent.metadata.tripId == null) return notFound();
 
   //TODO: Add this when Admin implemented
-  const product = await db.product.findUnique({
-    where: { id: paymentIntent.metadata.productId },
+  const trip = await db.trip.findUnique({
+    where: { id: paymentIntent.metadata.tripId },
   });
 
-  const mockProduct = data.products.find(
-    (product) => product.id === paymentIntent.metadata.productId
+  const mockTrip = data.trips.find(
+    (trip) => trip.id === paymentIntent.metadata.tripId
   );
 
-  if (mockProduct == null) return notFound();
+  if (mockTrip == null) return notFound();
 
   const isSuccess = paymentIntent.status === 'succeeded';
 
@@ -40,30 +40,28 @@ export default async function SuccessPage({
       <div className='flex gap-4 items-center'>
         <div className='aspect-video flex-shrink-0 w-1/3 relative'>
           <Image
-            src={mockProduct.imagePath}
+            src={mockTrip.imagePath}
             fill
-            alt={mockProduct.name}
+            alt={mockTrip.name}
             className='object-cover'
           />
         </div>
         <div>
-          <h1 className='text-2xl font-bold'>{mockProduct.name}</h1>
+          <h1 className='text-2xl font-bold'>{mockTrip.name}</h1>
           <div className='line-clamp-3 text-muted-foreground'>
-            {mockProduct.description}
+            {mockTrip.description}
           </div>
           <Button className='mt-4' size='lg' asChild>
             {isSuccess ? (
               <a
-                href={`/products/download/${await createDownloadVerification(
-                  mockProduct.id
+                href={`/trips/download/${await createDownloadVerification(
+                  mockTrip.id
                 )}`}
               >
                 Download
               </a>
             ) : (
-              <Link href={`/products/${mockProduct.id}/purchase`}>
-                Try Again
-              </Link>
+              <Link href={`/trips/${mockTrip.id}/purchase`}>Try Again</Link>
             )}
           </Button>
         </div>
@@ -72,11 +70,11 @@ export default async function SuccessPage({
   );
 }
 
-async function createDownloadVerification(productId: string) {
+async function createDownloadVerification(tripId: string) {
   return (
     await db.downloadVerification.create({
       data: {
-        productId,
+        tripId,
         expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24),
       },
     })

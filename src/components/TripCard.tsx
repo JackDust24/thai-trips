@@ -11,7 +11,7 @@ import { Button } from './ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 // Test
-type ProductCardProps = {
+type TripCardProps = {
   id: string;
   name: string;
   priceInBaht: number;
@@ -19,13 +19,13 @@ type ProductCardProps = {
   imagePath: string;
 };
 
-export function ProductCard({
+export function TripCard({
   id,
   name,
   priceInBaht,
   description,
   imagePath,
-}: ProductCardProps) {
+}: TripCardProps) {
   return (
     <Card className='flex overflow-hidden flex-col'>
       <div className='relative w-full h-auto aspect-video'>
@@ -40,14 +40,14 @@ export function ProductCard({
       </CardContent>
       <CardFooter>
         <Button asChild size='lg' className='w-full'>
-          <Link href={`/products/${id}/purchase`}>Purchase</Link>
+          <Link href={`/trips/${id}/purchase`}>Purchase</Link>
         </Button>
       </CardFooter>
     </Card>
   );
 }
 
-export function ProductCardSkeleton() {
+export function TripCardSkeleton() {
   return (
     <Card className='overflow-hidden flex flex-col animate-pulse'>
       <div className='w-full aspect-video bg-gray-300' />

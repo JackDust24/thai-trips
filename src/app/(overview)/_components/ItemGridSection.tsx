@@ -3,12 +3,12 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ItemSuspense from './ItemGridSuspense';
-import { Product } from '@/types/types';
-import { ProductCardSkeleton } from '@/components/ProductCard';
+import { Trip } from '@/types/types';
+import { TripCardSkeleton } from '@/components/TripCard';
 
 type ItemGridSectionProps = {
   title: string;
-  itemGridFetcher: () => Product[];
+  itemGridFetcher: () => Trip[];
 };
 
 export function ItemGridSection({
@@ -20,7 +20,7 @@ export function ItemGridSection({
       <div className='flex gap-4'>
         <h2 className='text-3xl font-bold'>{title}</h2>
         <Button variant='outline' asChild>
-          <Link href='/products' className='space-x-2'>
+          <Link href='/trips' className='space-x-2'>
             <span>View All</span>
             <ArrowRight className='size-4' />
           </Link>
@@ -30,9 +30,9 @@ export function ItemGridSection({
         <Suspense
           fallback={
             <>
-              <ProductCardSkeleton />
-              <ProductCardSkeleton />
-              <ProductCardSkeleton />
+              <TripCardSkeleton />
+              <TripCardSkeleton />
+              <TripCardSkeleton />
             </>
           }
         >
