@@ -14,16 +14,16 @@ model Trip {
   id                     String                 @id @default(uuid())
   name                   String
   priceInBaht            Int
-  itemsInStock           Int
-  filePath               String
+  numberOfPlaces         Int
+  tripDescPath           String
   imagePath              String
   description            String
+  location               String
   isAvailableForPurchase Boolean                @default(true)
   createdAt              DateTime               @default(now())
   updatedAt              DateTime               @updatedAt
   downloadVerifications  DownloadVerification[]
   orders                 Order[]
-  locations              Location[]             @relation("LocationToTrip")
 }
 
 model User {
@@ -37,12 +37,13 @@ model User {
 model Location {
   id        String   @id @default(uuid())
   name      String   @unique
+  province  String   @unique
+  district  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   latCoords String
   lonCoords String
   orders    Order[]
-  trips     Trip[]   @relation("LocationToTrip")
 }
 
 model Order {
