@@ -1,8 +1,8 @@
 import type { NextAuthOptions } from 'next-auth';
-import GithubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import GoogleProvider from 'next-auth/providers/google';
+import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google';
 import db from '@/database/database';
+import GithubProvider, { GithubProfile } from 'next-auth/providers/github';
 import bcrypt from 'bcryptjs';
 
 export const authOptions: NextAuthOptions = {
@@ -46,14 +46,41 @@ export const authOptions: NextAuthOptions = {
       },
     }),
     GithubProvider({
+      profile(profile: GithubProfile) {
+        return {
+          ...profile,
+          role: profile.role ?? 'user',
+          id: profile.id.toString(),
+          image: profile.avatar_url,
+        };
+      },
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
     }),
     GoogleProvider({
+      profile(profile: GoogleProfile) {
+        return {
+          ...profile,
+          role: profile.role ?? 'user',
+          id: profile.id.toString(),
+          image: profile.avatar_url,
+        };
+      },
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) token.role = user.role;
+      return token;
+    },
+    // If you want to use the role in client components
+    async session({ session, token }) {
+      if (session?.user) session.user.role = token.role;
+      return session;
+    },
+  },
   theme: {
     colorScheme: 'dark',
   },
