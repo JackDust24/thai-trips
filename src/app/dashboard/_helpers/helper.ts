@@ -12,8 +12,6 @@ export async function getTripData(
   if (createdAfter) createdAtQuery.gte = createdAfter;
   if (createdBefore) createdAtQuery.lte = createdBefore;
 
-  //TODO: Put proper db data when remove mock
-  /*
   const [activeCount, inactiveCount, chartData] = await Promise.all([
     db.trip.count({ where: { isAvailableForPurchase: true } }),
     db.trip.count({ where: { isAvailableForPurchase: false } }),
@@ -26,10 +24,11 @@ export async function getTripData(
         },
       },
     }),
-  ]); */
+  ]);
 
-  const { mockActiveCount, mockInActiveCount, mockChartData } =
-    retrieveMockData(createdAtQuery);
+  const { mockChartData } = retrieveMockData(createdAtQuery);
+
+  //TODO: Put proper db data when remove mock
 
   return {
     chartData: mockChartData
@@ -42,12 +41,12 @@ export async function getTripData(
         };
       })
       .filter((trip) => trip.revenue > 0),
-    activeCount: mockActiveCount,
-    inactiveCount: mockInActiveCount,
+    activeCount,
+    inactiveCount,
   };
 }
 
-// Temp function until real dat used
+// Temp function until real data used
 function retrieveMockData(
   createdAtQuery: string | Date | Prisma.DateTimeFilter<'Order'> | undefined
 ) {
@@ -59,22 +58,18 @@ function retrieveMockData(
     return trip.isAvailableForPurchase === false;
   }).length;
 
-  const mockChartData = data.trips
-    // .filter((trip) => {
-    //   return trip.createdAt === createdAtQuery;
-    // })
-    .map((trip) => {
-      const orders = data.orders
-        .filter((order) => {
-          return order.tripId === trip.id;
-        })
-        .map((order) => ({ pricePaidInBaht: order.pricePaidInBaht }));
+  const mockChartData = data.trips.map((trip) => {
+    const orders = data.orders
+      .filter((order) => {
+        return order.tripId === trip.id;
+      })
+      .map((order) => ({ pricePaidInBaht: order.pricePaidInBaht }));
 
-      return {
-        name: trip.name,
-        orders: orders,
-      };
-    });
+    return {
+      name: trip.name,
+      orders: orders,
+    };
+  });
 
   return {
     mockActiveCount,

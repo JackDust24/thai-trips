@@ -3,6 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 
+//TODO: Set up page
 export default function MyOrdersPage() {
   const { data: session } = useSession({
     required: true,
@@ -11,5 +12,5 @@ export default function MyOrdersPage() {
     },
   });
 
-  return <div>Hello</div>;
+  return <div>Page Under Construction</div>;
 }

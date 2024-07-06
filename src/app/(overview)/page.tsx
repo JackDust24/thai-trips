@@ -12,7 +12,7 @@ import db from '@/database/database';
 const getMostPopularTrips = cache(
   () => {
     return db.trip.findMany({
-      where: { isAvailableForPurchase: true },
+      where: { isAvailableForPurchase: false },
       orderBy: { orders: { _count: 'desc' } },
       take: 6,
     });
@@ -29,17 +29,8 @@ const getNewestTrips = cache(() => {
   });
 }, ['/', 'getNewestTrips']);
 
-const getPopularItems = (): MockTrip[] => {
-  return data.trips.filter((trip) => {
-    trip.isAvailableForPurchase === true;
-  }) satisfies MockTrip[];
-};
-
-const getNewestItems = (): MockTrip[] => {
-  return data.trips.slice(-3) satisfies MockTrip[];
-};
-
 export default function Home() {
+  const popularTrips = getMostPopularTrips();
   return (
     <main className='flex min-h-screen flex-col px-8'>
       <div className='flex relative h-20 mb-10 shrink-0 items-end rounded-lg bg-[#2962FF] p-4 md:h-80 shadow-xl'>
@@ -55,15 +46,15 @@ export default function Home() {
       </div>
       <div className='z-10 w-full max-w-5xl items-start gap-8 flex-col justify-between font-mono text-sm lg:flex'>
         <p
-          className={`${lusitana.className} text-xl text-gray-800 antialiased md:text-3xl md:leading-normal`}
+          className={`${lusitana.className} text-xl mb-4 text-gray-800 antialiased md:text-3xl md:leading-normal`}
         >
-          Hello Welcome Back
+          Hello Welcome Back - PAGE UNDER CONSTRUCTION
         </p>
         <ItemGridSection
           title='Most Popular'
-          itemGridFetcher={getPopularItems}
+          itemGridFetcher={getMostPopularTrips}
         />
-        <ItemGridSection title='Newest' itemGridFetcher={getNewestItems} />
+        <ItemGridSection title='Newest' itemGridFetcher={getNewestTrips} />
       </div>
     </main>
   );
