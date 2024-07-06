@@ -7,14 +7,14 @@ import { cache } from '@/lib/cache';
 
 const getTrips = cache(() => {
   return db.trip.findMany({
-    where: { isAvailableForPurchase: true },
+    where: { isAvailableForPurchase: false },
     orderBy: { name: 'asc' },
   });
 }, ['/trips', 'getTrips']);
 
 const getMockTrips = (): Trip[] => {
   return data.trips.filter((trip) => {
-    trip.isAvailableForPurchase === true;
+    return trip.isAvailableForPurchase === true;
   }) satisfies Trip[];
 };
 
@@ -39,10 +39,13 @@ export default function TripsPage() {
   );
 }
 
-function TripsSuspense() {
-  //TODO: WHen admin implemented remove mock
-  const mockTrips = getMockTrips();
-  const trips = getTrips();
-
-  return mockTrips.map((trip) => <TripCard key={trip.id} {...trip} />);
+async function TripsSuspense() {
+  const trips = await getTrips();
+  console.log(trips);
+  // Use Mock if trips are empty
+  if (!Array.isArray(trips) || !trips.length) {
+    const mockTrips = getMockTrips();
+    return mockTrips.map((trip) => <TripCard key={trip.id} {...trip} />);
+  }
+  return trips.map((trip) => <TripCard key={trip.id} {...trip} />);
 }

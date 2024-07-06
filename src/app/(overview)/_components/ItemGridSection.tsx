@@ -3,12 +3,13 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ItemSuspense from './ItemGridSuspense';
-import { Trip } from '@/types/types';
+import { Trip } from '@prisma/client';
 import { TripCardSkeleton } from '@/components/TripCard';
+import { Trip as MockTrip } from '@/types/types';
 
 type ItemGridSectionProps = {
   title: string;
-  itemGridFetcher: () => Trip[];
+  itemGridFetcher: () => Promise<Trip[]> | MockTrip[];
 };
 
 export function ItemGridSection({

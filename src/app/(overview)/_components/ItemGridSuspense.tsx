@@ -1,12 +1,15 @@
 import { TripCard } from '@/components/TripCard';
-import { Trip } from '@/types/types';
+import { Trip } from '@prisma/client';
+import { Trip as MockTrip } from '@/types/types';
 
 async function ItemSuspense({
   itemGridFetcher,
 }: {
-  itemGridFetcher: () => Trip[];
+  itemGridFetcher: () => Promise<Trip[]>;
 }) {
-  return itemGridFetcher().map((trip) => <TripCard key={trip.id} {...trip} />);
+  return (await itemGridFetcher()).map((trip) => (
+    <TripCard key={trip.id} {...trip} />
+  ));
 }
 
 export default ItemSuspense;

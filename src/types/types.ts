@@ -6,7 +6,6 @@ export type Trip = {
   tripDescPath: string;
   imagePath: string;
   description: string;
-  dates: string;
   location: string;
   isAvailableForPurchase: boolean;
   createdAt: string;
