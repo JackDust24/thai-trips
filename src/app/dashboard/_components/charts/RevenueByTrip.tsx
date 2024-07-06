@@ -32,7 +32,7 @@ export function RevenueByTripChart({
   const options = {
     title: {
       text: 'Trip Revenue Chart',
-      subtext: 'Fake Data',
+      subtext: 'MOCK Data until live',
       left: 'center',
       textStyle: {
         fontSize: 24,

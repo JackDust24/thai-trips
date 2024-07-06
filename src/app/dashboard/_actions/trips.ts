@@ -27,7 +27,6 @@ const editSchema = addSchema.extend({
 });
 
 export async function addTrip(prevState: unknown, formData: FormData) {
-  console.log(formData);
   const result = addSchema.safeParse(Object.fromEntries(formData.entries()));
   if (result.success === false) {
     return result.error.formErrors.fieldErrors;
