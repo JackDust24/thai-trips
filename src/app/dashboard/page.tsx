@@ -7,6 +7,7 @@ import { RANGE_OPTIONS, getRangeOption } from '@/lib/rangeOptions';
 import { formatNumber } from '@/lib/formatter';
 import { ChartCard } from './_components/ChartCard';
 import { RevenueByTripChart } from './_components/charts/RevenueByTrip';
+import Link from 'next/link';
 
 // will result in routes being rendered for each user at request time
 export const dynamic = 'force-dynamic';
@@ -43,11 +44,13 @@ export default async function AdminDashboard({
       </h1>
       <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
         <Suspense fallback={<DashboardSkeleton />}>
-          <DashboardCard
-            title='Active trips'
-            subtitle={`${formatNumber(tripData.inactiveCount)} Inactive`}
-            body={formatNumber(tripData.activeCount)}
-          />
+          <Link href='/dashboard/trips'>
+            <DashboardCard
+              title='Active trips'
+              subtitle={`${formatNumber(tripData.inactiveCount)} Inactive`}
+              body={formatNumber(tripData.activeCount)}
+            />
+          </Link>
         </Suspense>
       </div>
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8'>
