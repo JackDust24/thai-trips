@@ -4,7 +4,7 @@ import { TripForm } from '../_components/TripForm';
 export default function AddTripPage() {
   return (
     <>
-      <PageHeader>Add Product</PageHeader>
+      <PageHeader>Add Trip</PageHeader>
       <TripForm />
     </>
   );

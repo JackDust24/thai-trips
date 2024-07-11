@@ -41,7 +41,6 @@ export default function TripsPage() {
 
 async function TripsSuspense() {
   const trips = await getTrips();
-  console.log(trips);
   // Use Mock if trips are empty
   if (!Array.isArray(trips) || !trips.length) {
     const mockTrips = getMockTrips();

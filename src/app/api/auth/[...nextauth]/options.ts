@@ -20,7 +20,6 @@ export const authOptions: NextAuthOptions = {
           const storedUser = await db.user.findUnique({
             where: { email: credentials.email },
           });
-          console.log(storedUser);
 
           if (storedUser) {
             //TODO: hash the password:
@@ -29,8 +28,7 @@ export const authOptions: NextAuthOptions = {
               await hashPassword(credentials.password),
               await hashPassword(storedUser.password)
             );
-            console.log(credentials.password, storedUser.password);
-            console.log(isPasswordCorrect); */
+            */
 
             if (credentials.password === storedUser.password) {
               return storedUser;
