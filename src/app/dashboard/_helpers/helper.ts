@@ -1,7 +1,6 @@
 import { Prisma } from '@prisma/client';
 import db from '@/database/database';
 import data from '@/app/_mocks/mockItemData.json';
-import { Trip as MockTrip } from '@/types/types';
 
 export async function getTripData(
   createdAfter: Date | null,

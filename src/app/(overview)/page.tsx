@@ -4,7 +4,6 @@ import { lusitana } from '@/app/ui/fonts';
 import { ItemGridSection } from './_components/ItemGridSection';
 import data from '@/app/_mocks/mockItemData.json';
 import { cache } from '@/lib/cache';
-import { Trip as MockTrip } from '@/types/types';
 import { Trip } from '@prisma/client';
 import db from '@/database/database';
 

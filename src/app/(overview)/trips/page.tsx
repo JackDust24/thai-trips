@@ -7,7 +7,7 @@ import { cache } from '@/lib/cache';
 
 const getTrips = cache(() => {
   return db.trip.findMany({
-    where: { isAvailableForPurchase: false },
+    where: { isAvailableForPurchase: true },
     orderBy: { name: 'asc' },
   });
 }, ['/trips', 'getTrips']);
@@ -41,10 +41,11 @@ export default function TripsPage() {
 
 async function TripsSuspense() {
   const trips = await getTrips();
+  console.log(trips);
   // Use Mock if trips are empty
-  if (!Array.isArray(trips) || !trips.length) {
-    const mockTrips = getMockTrips();
-    return mockTrips.map((trip) => <TripCard key={trip.id} {...trip} />);
-  }
+  // if (!Array.isArray(trips) || !trips.length) {
+  //   const mockTrips = getMockTrips();
+  //   return mockTrips.map((trip) => <TripCard key={trip.id} {...trip} />);
+  // }
   return trips.map((trip) => <TripCard key={trip.id} {...trip} />);
 }

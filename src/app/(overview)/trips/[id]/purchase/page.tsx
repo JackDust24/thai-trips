@@ -5,12 +5,6 @@ import { notFound } from 'next/navigation';
 import Stripe from 'stripe';
 import db from '@/database/database';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
-
-const getTrip = (id: string) => {
-  return data.trips.find((trip) => trip.id === id);
-};
-
 export default async function PurchasePage({
   params: { id },
   searchParams: { coupon },
@@ -20,9 +14,7 @@ export default async function PurchasePage({
 }) {
   const trip = await db.trip.findUnique({ where: { id } });
 
-  //TODO: Remove after data added
-  const mockTrip = getTrip(id);
-  if (mockTrip == null) return notFound();
+  if (trip == null) return notFound();
 
-  return <CheckoutForm trip={mockTrip} />;
+  return <CheckoutForm trip={trip} />;
 }
