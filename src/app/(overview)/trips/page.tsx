@@ -1,6 +1,5 @@
 import { TripCard, TripCardSkeleton } from '@/components/TripCard';
 import { Suspense } from 'react';
-import data from '@/app/_mocks/mockItemData.json';
 import { Trip } from '@/types/types';
 import db from '@/database/database';
 import { cache } from '@/lib/cache';
@@ -11,12 +10,6 @@ const getTrips = cache(() => {
     orderBy: { name: 'asc' },
   });
 }, ['/trips', 'getTrips']);
-
-const getMockTrips = (): Trip[] => {
-  return data.trips.filter((trip) => {
-    return trip.isAvailableForPurchase === true;
-  }) satisfies Trip[];
-};
 
 export default function TripsPage() {
   return (
@@ -41,11 +34,6 @@ export default function TripsPage() {
 
 async function TripsSuspense() {
   const trips = await getTrips();
-  console.log(trips);
-  // Use Mock if trips are empty
-  // if (!Array.isArray(trips) || !trips.length) {
-  //   const mockTrips = getMockTrips();
-  //   return mockTrips.map((trip) => <TripCard key={trip.id} {...trip} />);
-  // }
+
   return trips.map((trip) => <TripCard key={trip.id} {...trip} />);
 }

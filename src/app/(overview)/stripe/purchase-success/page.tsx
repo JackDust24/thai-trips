@@ -13,7 +13,6 @@ export default async function SuccessPage({
 }: {
   searchParams: { payment_intent: string };
 }) {
-  let linkUrl = 'pending';
   const paymentIntent = await stripe.paymentIntents.retrieve(
     searchParams.payment_intent
   );
@@ -27,9 +26,6 @@ export default async function SuccessPage({
   if (trip == null) return notFound();
 
   const isSuccess = paymentIntent.status === 'succeeded';
-  //TODO: Can't get this to build in Vercel - temp
-  // const getDownloadId = await createDownloadVerification(trip.id);
-  // linkUrl = `/trips/download/${getDownloadId}`;
 
   return (
     <div className='max-w-5xl w-full mx-auto space-y-8'>
@@ -50,15 +46,19 @@ export default async function SuccessPage({
           <div className='line-clamp-3 text-muted-foreground'>
             {trip.description}
           </div>
-          {/* <Button className='mt-4' size='lg' asChild>
-            {isSuccess && linkUrl !== 'pending' ? (
-              <a href={linkUrl}>Download</a>
+          <Button className='mt-4' size='lg' asChild>
+            {isSuccess ? (
+              <a
+                href={`/trips/download/${await createDownloadVerification(
+                  trip.id
+                )}`}
+              >
+                Download
+              </a>
             ) : (
-              <Link href={`/trips/${trip.id}/purchase`}>
-                {linkUrl === 'pending' ? 'Pending' : 'Try Again'}
-              </Link>
+              <Link href={`/trips/${trip.id}/purchase`}>Try Again</Link>
             )}
-          </Button> */}
+          </Button>
         </div>
       </div>
     </div>

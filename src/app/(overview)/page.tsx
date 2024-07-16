@@ -7,7 +7,6 @@ import { cache } from '@/lib/cache';
 import { Trip } from '@prisma/client';
 import db from '@/database/database';
 
-//TODO: Implement in next commit - when Admin added
 const getMostPopularTrips = cache(
   () => {
     return db.trip.findMany({
