@@ -7,6 +7,8 @@ export async function GET(
   req: NextRequest,
   { params: { id } }: { params: { id: string } }
 ) {
+  console.log('Request Params:', req, id);
+
   const trip = await db.trip.findUnique({
     where: { id },
     select: { tripDescPath: true, name: true },

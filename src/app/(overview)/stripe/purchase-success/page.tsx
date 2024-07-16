@@ -19,7 +19,6 @@ export default async function SuccessPage({
 
   if (paymentIntent.metadata.tripId == null) return notFound();
 
-  //TODO: Add this when Admin implemented
   const trip = await db.trip.findUnique({
     where: { id: paymentIntent.metadata.tripId },
   });
