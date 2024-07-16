@@ -24,11 +24,7 @@ export default async function SuccessPage({
     where: { id: paymentIntent.metadata.tripId },
   });
 
-  const mockTrip = data.trips.find(
-    (trip) => trip.id === paymentIntent.metadata.tripId
-  );
-
-  if (mockTrip == null) return notFound();
+  if (trip == null) return notFound();
 
   const isSuccess = paymentIntent.status === 'succeeded';
 
@@ -40,28 +36,28 @@ export default async function SuccessPage({
       <div className='flex gap-4 items-center'>
         <div className='aspect-video flex-shrink-0 w-1/3 relative'>
           <Image
-            src={mockTrip.imagePath}
+            src={trip.imagePath}
             fill
-            alt={mockTrip.name}
+            alt={trip.name}
             className='object-cover'
           />
         </div>
         <div>
-          <h1 className='text-2xl font-bold'>{mockTrip.name}</h1>
+          <h1 className='text-2xl font-bold'>{trip.name}</h1>
           <div className='line-clamp-3 text-muted-foreground'>
-            {mockTrip.description}
+            {trip.description}
           </div>
           <Button className='mt-4' size='lg' asChild>
             {isSuccess ? (
               <a
                 href={`/trips/download/${await createDownloadVerification(
-                  mockTrip.id
+                  trip.id
                 )}`}
               >
                 Download
               </a>
             ) : (
-              <Link href={`/trips/${mockTrip.id}/purchase`}>Try Again</Link>
+              <Link href={`/trips/${trip.id}/purchase`}>Try Again</Link>
             )}
           </Button>
         </div>
