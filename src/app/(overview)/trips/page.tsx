@@ -4,12 +4,16 @@ import { Trip } from '@/types/types';
 import db from '@/database/database';
 import { cache } from '@/lib/cache';
 
-const getTrips = cache(() => {
-  return db.trip.findMany({
-    where: { isAvailableForPurchase: true },
-    orderBy: { name: 'asc' },
-  });
-}, ['/trips', 'getTrips']);
+const getTrips = cache(
+  () => {
+    return db.trip.findMany({
+      where: { isAvailableForPurchase: true },
+      orderBy: { name: 'asc' },
+    });
+  },
+  ['/trips', 'getTrips'],
+  { revalidate: 30 }
+);
 
 export default function TripsPage() {
   return (

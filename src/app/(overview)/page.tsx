@@ -10,18 +10,18 @@ import db from '@/database/database';
 const getMostPopularTrips = cache(
   () => {
     return db.trip.findMany({
-      where: { isAvailableForPurchase: false },
+      where: { isAvailableForPurchase: true },
       orderBy: { orders: { _count: 'desc' } },
       take: 6,
     });
   },
   ['/', 'getMostPopularTrips'],
-  { revalidate: 60 * 60 * 24 }
+  { revalidate: 30 }
 );
 
 const getNewestTrips = cache(() => {
   return db.trip.findMany({
-    where: { isAvailableForPurchase: true },
+    where: { isAvailableForPurchase: false },
     orderBy: { createdAt: 'desc' },
     take: 6,
   });
@@ -46,7 +46,7 @@ export default function Home() {
         <p
           className={`${lusitana.className} text-xl mb-4 text-gray-800 antialiased md:text-3xl md:leading-normal`}
         >
-          Hello Welcome Back - PAGE UNDER CONSTRUCTION
+          Hello Welcome Back
         </p>
         <ItemGridSection
           title='Most Popular'
