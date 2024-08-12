@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { formatCurrency, formatNumber } from '@/lib/formatter';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { Trip } from '@prisma/client';
 import Image from 'next/image';
@@ -33,7 +33,7 @@ export function TripForm({ trip }: { trip?: Trip | null }) {
 
   const [image, setImage] = useState<string | undefined>(trip?.imagePath);
 
-  const handleImageChange = (e) => {
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
       const blob = new Blob([file], { type: file.type });
