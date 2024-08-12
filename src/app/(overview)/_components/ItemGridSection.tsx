@@ -5,11 +5,10 @@ import { Button } from '@/components/ui/button';
 import ItemSuspense from './ItemGridSuspense';
 import { Trip } from '@prisma/client';
 import { TripCardSkeleton } from '@/components/TripCard';
-import { Trip as MockTrip } from '@/types/types';
 
 type ItemGridSectionProps = {
   title: string;
-  itemGridFetcher: () => Promise<Trip[]> | MockTrip[];
+  itemGridFetcher: () => Promise<Trip[]>;
 };
 
 export function ItemGridSection({
@@ -20,7 +19,7 @@ export function ItemGridSection({
     <div className='space-y-4'>
       <div className='flex gap-4'>
         <h2 className='text-3xl font-bold'>{title}</h2>
-        <Button variant='outline' asChild>
+        <Button variant='focused' asChild>
           <Link href='/trips' className='space-x-2'>
             <span>View All</span>
             <ArrowRight className='size-4' />

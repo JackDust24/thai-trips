@@ -2,9 +2,7 @@ import Image from 'next/image';
 import Logo from '@/app/ui/logo';
 import { lusitana } from '@/app/ui/fonts';
 import { ItemGridSection } from './_components/ItemGridSection';
-import data from '@/app/_mocks/mockItemData.json';
 import { cache } from '@/lib/cache';
-import { Trip } from '@prisma/client';
 import db from '@/database/database';
 
 const getMostPopularTrips = cache(
@@ -19,13 +17,17 @@ const getMostPopularTrips = cache(
   { revalidate: 30 }
 );
 
-const getNewestTrips = cache(() => {
-  return db.trip.findMany({
-    where: { isAvailableForPurchase: false },
-    orderBy: { createdAt: 'desc' },
-    take: 6,
-  });
-}, ['/', 'getNewestTrips']);
+const getNewestTrips = cache(
+  () => {
+    return db.trip.findMany({
+      where: { isAvailableForPurchase: false },
+      orderBy: { createdAt: 'desc' },
+      take: 6,
+    });
+  },
+  ['/', 'getNewestTrips'],
+  { revalidate: 30 }
+);
 
 export default function Home() {
   const popularTrips = getMostPopularTrips();
@@ -46,7 +48,7 @@ export default function Home() {
         <p
           className={`${lusitana.className} text-xl mb-4 text-gray-800 antialiased md:text-3xl md:leading-normal`}
         >
-          Hello Welcome Back
+          Please select a Trip
         </p>
         <ItemGridSection
           title='Most Popular'

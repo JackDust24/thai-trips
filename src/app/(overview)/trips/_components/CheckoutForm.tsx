@@ -5,6 +5,14 @@ import Image from 'next/image';
 import { Elements } from '@stripe/react-stripe-js';
 import { Form } from './Form';
 import { formatCurrency } from '@/lib/formatter';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu';
+import { MAX_PERSONS_PER_TRIP } from '@/lib/consttants';
+import { useState } from 'react';
 
 type CheckoutFormProps = {
   trip: {
@@ -20,12 +28,22 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string
 );
 
-export function CheckoutForm({ trip }: CheckoutFormProps) {
-  const amount = trip.priceInBaht;
+const TRIP_ITEMS = Array.from(
+  { length: MAX_PERSONS_PER_TRIP },
+  (_, i) => i + 1
+);
 
+export function CheckoutForm({ trip }: CheckoutFormProps) {
+  const [numPersons, setNumPersons] = useState<number>(1);
+  const [amount, setAmount] = useState(trip.priceInBaht);
+
+  const handleAmountChange = (_numPersons: number) => {
+    setAmount(trip.priceInBaht * _numPersons);
+    setNumPersons(_numPersons);
+  };
   return (
-    <div className='max-w-5xl w-full mx-auto space-y-8'>
-      <div className='flex gap-4 items-center'>
+    <div className='max-w-5xl w-full mx-auto space-y-8 my-8'>
+      <div className='flex bg-[#FFF] gap-4 justify-start border-solid border-2'>
         <div className='aspect-video flex-shrink-0 w-1/3 relative'>
           <Image
             src={trip.imagePath}
@@ -34,13 +52,30 @@ export function CheckoutForm({ trip }: CheckoutFormProps) {
             className='object-cover'
           />
         </div>
-        <div>
-          <div className='text-lg flex gap-4 items-baseline'>
-            {formatCurrency(trip.priceInBaht)}
+        <div className='w-full p-6 space-y-2'>
+          <h1 className='text-2xl font-bold'>Name of Trip: {trip.name}</h1>
+          <div className='flex justify-between'>
+            <div className='text-lg flex gap-4 items-baseline'>
+              Cost: {formatCurrency(amount)} &nbsp; {numPersons} persons
+            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <button className='text-lg text-tripsBlue'>Add People</button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                {TRIP_ITEMS.map((number) => (
+                  <DropdownMenuItem
+                    key={number}
+                    onClick={() => handleAmountChange(number)}
+                  >
+                    {number}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
-          <h1 className='text-2xl font-bold'>{trip.name}</h1>
           <div className='line-clamp-3 text-muted-foreground'>
-            {trip.description}
+            Details: {trip.description}
           </div>
         </div>
       </div>

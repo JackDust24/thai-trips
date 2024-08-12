@@ -31,9 +31,19 @@ export function TripForm({ trip }: { trip?: Trip | null }) {
     trip?.priceInBaht
   );
 
+  const [image, setImage] = useState<string | undefined>(trip?.imagePath);
+
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      const blob = new Blob([file], { type: file.type });
+      setImage(URL.createObjectURL(blob));
+    }
+  };
+
   return (
     <form action={action}>
-      <div className='w-[700px] bg-[#C0C0C0] m-auto border-2 flex flex-col border-slate-600 p-8 space-y-8 shadow-xl'>
+      <div className='md:w-[700px] bg-[#eaedf0] m-auto border-2 flex flex-col border-slate-100 p-8 space-y-8 shadow-xl'>
         <div className='space-y-2 '>
           <Label htmlFor='name'>Name</Label>
           <Input
@@ -52,7 +62,9 @@ export function TripForm({ trip }: { trip?: Trip | null }) {
           <div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant='secondary'>Choose Province</Button>
+                <Button variant='secondary' className='text-tripsBlue'>
+                  Choose Province
+                </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className='border border-solid'>
                 {Object.entries(data.locations).map(([key, value]) => (
@@ -148,14 +160,10 @@ export function TripForm({ trip }: { trip?: Trip | null }) {
             className='border-solid border-2 w-80'
             required={trip == null}
             placeholder='Photo or picture'
+            onChange={(e) => handleImageChange(e)}
           />
-          {trip != null && (
-            <Image
-              src={trip.imagePath}
-              height='400'
-              width='400'
-              alt='Trip Image'
-            />
+          {image != null && (
+            <Image src={image} height='400' width='400' alt='Trip Image' />
           )}
           {error.image && <div className='text-destructive'>{error.image}</div>}
         </div>

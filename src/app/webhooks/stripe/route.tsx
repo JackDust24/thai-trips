@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import data from '@/app/_mocks/mockItemData.json';
+import db from '@/database/database';
 
 //TODO: Redo file
 
@@ -20,9 +21,8 @@ export async function POST(req: NextRequest) {
     const pricePaidInBaht = charge.amount;
     const locationId = '1';
 
-    const trip = data.trips.find((trip) => trip.id === tripId);
+    const trip = await db.trip.findUnique({ where: { id: tripId } });
 
-    // const trip = await db.trip.findUnique({ where: { id: tripId } });
     if (trip == null || email == null) {
       return new NextResponse('Bad Request', { status: 400 });
     }

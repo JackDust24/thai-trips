@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Stripe from 'stripe';
-import data from '@/app/_mocks/mockItemData.json';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 

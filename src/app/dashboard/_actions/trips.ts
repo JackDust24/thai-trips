@@ -34,9 +34,12 @@ export async function addTrip(prevState: unknown, formData: FormData) {
 
   const data = result.data;
 
-  await fs.mkdir('trips', { recursive: true });
-  const tripDescPath = `trips/${crypto.randomUUID()}-${data.file.name}`;
-  await fs.writeFile(tripDescPath, Buffer.from(await data.file.arrayBuffer()));
+  await fs.mkdir('public/trips', { recursive: true });
+  const tripDescPath = `/trips/${crypto.randomUUID()}-${data.file.name}`;
+  await fs.writeFile(
+    `public${tripDescPath}`,
+    Buffer.from(await data.file.arrayBuffer())
+  );
 
   await fs.mkdir('public/trips', { recursive: true });
   const imagePath = `/trips/${crypto.randomUUID()}-${data.image.name}`;

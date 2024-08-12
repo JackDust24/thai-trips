@@ -18,6 +18,8 @@ import {
 } from '@stripe/react-stripe-js';
 import { FormEvent, useState } from 'react';
 
+const IS_PROD_ENV = process.env.NODE_ENV === 'production';
+
 export function Form({
   priceInBaht,
   tripId,
@@ -72,9 +74,9 @@ export function Form({
 
   return (
     <form onSubmit={handleSubmit}>
-      <Card>
+      <Card className='shadow-2xl'>
         <CardHeader>
-          <CardTitle>Checkout</CardTitle>
+          <CardTitle>Trip Cost = {formatCurrency(priceInBaht)}</CardTitle>
           <CardDescription className='text-destructive'>
             {errorMessage && <div>{errorMessage}</div>}
           </CardDescription>
@@ -87,16 +89,24 @@ export function Form({
             />
           </div>
         </CardContent>
-        <CardFooter>
+        <CardFooter className='flex flex-col space-y-4'>
           <Button
-            className='w-full'
+            className='w-1/3 mx-auto'
             size='lg'
-            disabled={stripe == null || elements == null || isLoading}
+            variant={'focused'}
+            disabled={
+              IS_PROD_ENV || stripe == null || elements == null || isLoading
+            }
           >
             {isLoading
               ? 'Purchasing...'
               : `Purchase - ${formatCurrency(priceInBaht)}`}
           </Button>
+          {IS_PROD_ENV && (
+            <h1 className='text-red-600 mx-auto'>
+              This is a test account and will not process real payments.
+            </h1>
+          )}
         </CardFooter>
       </Card>
     </form>

@@ -8,7 +8,7 @@ import { signOut, useSession } from 'next-auth/react';
 
 export function Nav({ children }: { children: ReactNode }) {
   return (
-    <nav className='bg-[#2962FF] text-primary-foreground flex justify-center px-4'>
+    <nav className='bg-tripsBlue text-primary-foreground flex justify-center px-4'>
       {children}
     </nav>
   );
@@ -21,8 +21,8 @@ export function NavLink(props: Omit<ComponentProps<typeof Link>, 'classname'>) {
     <Link
       {...props}
       className={cn(
-        'p-4 hover:bg-[#0fffeb] text-white hover:text-secondary-foreground focus-visible:bg-secondary focus-visible:text-secondary-foreground',
-        pathname === props.href && 'bg-[#0fefff] text-foreground'
+        'p-4 hover:text-[#29b3ff] text-white focus-visible:bg-secondary focus-visible:text-secondary-foreground',
+        pathname === props.href && 'text-[#29b3ff]'
       )}
     />
   );

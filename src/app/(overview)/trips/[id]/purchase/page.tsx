@@ -1,8 +1,5 @@
-import { Trip } from '@/types/types';
-import data from '@/app/_mocks/mockItemData.json';
 import { CheckoutForm } from '../../_components/CheckoutForm';
 import { notFound } from 'next/navigation';
-import Stripe from 'stripe';
 import db from '@/database/database';
 
 export default async function PurchasePage({

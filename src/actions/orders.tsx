@@ -3,7 +3,6 @@
 import db from '@/database/database';
 import Stripe from 'stripe';
 import { z } from 'zod';
-import data from '@/app/_mocks/mockItemData.json';
 
 const emailSchema = z.string().email();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
