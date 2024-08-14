@@ -6,9 +6,20 @@ import { usePathname } from 'next/navigation';
 import { ComponentProps, ReactNode } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 
-export function Nav({ children }: { children: ReactNode }) {
+export function Nav({
+  children,
+  className,
+}: {
+  children?: ReactNode;
+  className?: string;
+}) {
   return (
-    <nav className='bg-tripsBlue text-primary-foreground flex justify-center px-4'>
+    <nav
+      className={cn(
+        'bg-tripsBlue text-primary-foreground flex justify-center px-1 md:px-4',
+        className
+      )}
+    >
       {children}
     </nav>
   );
@@ -21,8 +32,8 @@ export function NavLink(props: Omit<ComponentProps<typeof Link>, 'classname'>) {
     <Link
       {...props}
       className={cn(
-        'p-4 hover:text-[#29b3ff] text-white focus-visible:bg-secondary focus-visible:text-secondary-foreground',
-        pathname === props.href && 'text-[#29b3ff]'
+        'p-4 hover:text-[#f3ff14] text-white md:text-2xl focus-visible:bg-secondary focus-visible:text-secondary-foreground',
+        pathname === props.href && 'text-[#f3ff14]'
       )}
     />
   );
@@ -34,7 +45,7 @@ export function LoginStatus() {
     <div className='absolute right-10 top-4 text-white'>
       {session ? (
         <>
-          {session.user?.email}
+          <p className='hidden md:inline-block'>{session.user?.email}</p>
           <Link
             className='text-center text-white hover:underline'
             href='/'

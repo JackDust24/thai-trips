@@ -24,6 +24,10 @@ const config = {
         ring: '#0C0A08',
         background: '#FFFFFF',
         foreground: '#0C0A08',
+        hero: {
+          DEFAULT: '#bcf5ff',
+          foreground: '#FCF8E9',
+        },
         primary: {
           DEFAULT: '#1B1613',
           foreground: '#FCF8E9',

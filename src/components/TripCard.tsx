@@ -10,6 +10,7 @@ import {
 import { Button } from './ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
+import { cn } from '@/lib/utils';
 
 type TripCardProps = {
   id: string;
@@ -17,6 +18,8 @@ type TripCardProps = {
   priceInBaht: number;
   description: string;
   imagePath: string;
+  canPurchase?: boolean;
+  className?: string;
 };
 
 export function TripCard({
@@ -25,10 +28,17 @@ export function TripCard({
   priceInBaht,
   description,
   imagePath,
+  canPurchase = true,
+  className,
 }: TripCardProps) {
   return (
     <Card className='flex overflow-hidden flex-col'>
-      <div className='relative w-full h-auto aspect-video'>
+      <div
+        className={cn(
+          'relative w-full md:w-[20rem] h-auto aspect-video',
+          className
+        )}
+      >
         <Image src={imagePath} fill alt={name} />
       </div>
       <CardHeader>
@@ -38,10 +48,15 @@ export function TripCard({
       <CardContent className='flex-grow'>
         <p className='line-clamp-4'>{description}</p>
       </CardContent>
+
       <CardFooter>
-        <Button asChild size='lg' className='w-full'>
-          <Link href={`/trips/${id}/purchase`}>Purchase</Link>
-        </Button>
+        {canPurchase ? (
+          <Button asChild size='lg' className='w-full'>
+            <Link href={`/trips/${id}/purchase`}>Purchase</Link>
+          </Button>
+        ) : (
+          <p className='line-clamp-4 text-red-500'>Coming soon </p>
+        )}
       </CardFooter>
     </Card>
   );
@@ -50,7 +65,7 @@ export function TripCard({
 export function TripCardSkeleton() {
   return (
     <Card className='overflow-hidden flex flex-col animate-pulse'>
-      <div className='w-full aspect-video bg-gray-300' />
+      <div className='w-full md:w-[20rem] aspect-video bg-gray-300' />
       <CardHeader>
         <CardTitle>
           <div className='w-3/4 h-6 rounded-full bg-gray-300' />

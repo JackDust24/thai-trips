@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import data from '@/app/_mocks/mockItemData.json';
 import db from '@/database/database';
 
 //TODO: Redo file

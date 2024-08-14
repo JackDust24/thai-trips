@@ -8,15 +8,15 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className='flex flex-col bg-stone-100'>
-      <Nav>
+    <div className='flex relative flex-row md:flex-col bg-stone-100'>
+      <Nav className='z-20 bg-transparent'>
         <NavLink href='/'>Home</NavLink>
         <NavLink href='/trips'>Trips</NavLink>
         <NavLink href='/orders'>My Orders</NavLink>
         <NavLink href='/locations'>Locations</NavLink>
         <LoginStatus />
       </Nav>
-      <div className='container mt-2'>{children}</div>
+      <div className='absolute w-full'>{children}</div>
     </div>
   );
 }
