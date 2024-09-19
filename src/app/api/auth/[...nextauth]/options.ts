@@ -4,9 +4,9 @@ import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google';
 import db from '@/database/database';
 import GithubProvider, { GithubProfile } from 'next-auth/providers/github';
 import bcrypt from 'bcryptjs';
+import { Account, User as AuthUser } from 'next-auth';
 
 export const authOptions: NextAuthOptions = {
-  // First set up Providers
   providers: [
     CredentialsProvider({
       id: 'credentials',
@@ -22,14 +22,6 @@ export const authOptions: NextAuthOptions = {
           });
 
           if (storedUser) {
-            //TODO: hash the password:
-            /*
-            const isPasswordCorrect = await bcrypt.compare(
-              await hashPassword(credentials.password),
-              await hashPassword(storedUser.password)
-            );
-            */
-
             if (credentials.password === storedUser.password) {
               return storedUser;
             } else {
@@ -48,8 +40,9 @@ export const authOptions: NextAuthOptions = {
         return {
           ...profile,
           role: profile.role ?? 'user',
-          id: profile.id.toString(),
-          image: profile.avatar_url,
+          id: profile.sub,
+          picture: profile.avatar_url,
+          name: profile.name,
         };
       },
       clientId: process.env.GITHUB_ID as string,
@@ -60,8 +53,9 @@ export const authOptions: NextAuthOptions = {
         return {
           ...profile,
           role: profile.role ?? 'user',
-          id: profile.id.toString(),
-          image: profile.avatar_url,
+          id: profile.sub,
+          picture: profile.avatar_url,
+          name: profile.name,
         };
       },
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -70,20 +64,58 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
+      console.log('JWT', token, user);
       if (user) token.role = user.role;
       return token;
     },
-    // If you want to use the role in client components
     async session({ session, token }) {
+      console.log('Session', session, token);
       if (session?.user) session.user.role = token.role;
       return session;
     },
+    async signIn({
+      user,
+      account,
+    }: {
+      user: AuthUser;
+      account: Account | null;
+    }) {
+      if (account?.provider == 'credentials') {
+        return true;
+      }
+      if (account?.provider == 'github' || account?.provider == 'google') {
+        try {
+          if (!user.email) {
+            throw new Error('User email is null or undefined');
+          }
+          const existingUser = await db.user.findUnique({
+            where: { email: user.email },
+          });
+          if (!existingUser) {
+            await db.user.create({
+              data: {
+                email: user.email,
+                role: 'user',
+                password: 'password',
+                id: user.id,
+                name: user.name ?? user.email,
+                adminAccess: false,
+              },
+            });
+
+            return true;
+          }
+          return true;
+        } catch (err) {
+          console.log('Error saving user', err);
+          return false;
+        }
+      }
+      return false;
+    },
   },
+
   theme: {
     colorScheme: 'dark',
   },
 };
-
-async function hashPassword(password: string) {
-  return await bcrypt.hash(password, 10);
-}

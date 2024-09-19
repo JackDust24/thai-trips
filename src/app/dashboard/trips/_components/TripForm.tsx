@@ -80,7 +80,9 @@ export function TripForm({ trip }: { trip?: Trip | null }) {
           </div>
           <input type='hidden' name='location' value={location} />
 
-          {error.name && <div className='text-destructive'>{error.name}</div>}
+          {error.location && (
+            <div className='text-destructive'>{error.name}</div>
+          )}
         </div>
         <div className='space-y-2'>
           <Label htmlFor='description'>Description</Label>
