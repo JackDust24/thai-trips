@@ -40,7 +40,9 @@ export default async function AdminDashboard({
   return (
     <main>
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-        Dashboard - Page Under Constuction
+        Dashboard - Page Under Constuction. Please click{' '}
+        <span className='font-bold text-tripsBlue'>Active Trips</span> below to
+        add/edit trips.
       </h1>
       <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
         <Suspense fallback={<DashboardSkeleton />}>

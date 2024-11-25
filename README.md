@@ -76,9 +76,10 @@ Need Admin access. If own database, add role as admin.
 
 From the envlosed db:
 ```bash
-normal user > email: test@test.com, password: test1234@
-Admin user > email: admin@admin.com, password: test1234@
+Admin user > email: test@test.com, password: test1234@
 ```
+
+Card No: 4242424242424242
 
 ## Screenshots
 ![Home Page](./src/assets/home.png)

@@ -16,14 +16,7 @@ export function Nav({
   className?: string;
 }) {
   return (
-    <nav
-      className={cn(
-        'bg-tripsBlue text-primary-foreground flex justify-center px-1 md:px-4',
-        className
-      )}
-    >
-      {children}
-    </nav>
+    <nav className={cn('text-primary-foreground', className)}>{children}</nav>
   );
 }
 
@@ -34,8 +27,8 @@ export function NavLink(props: Omit<ComponentProps<typeof Link>, 'classname'>) {
     <Link
       {...props}
       className={cn(
-        'p-4 hover:text-[#f3ff14] text-white md:text-2xl focus-visible:bg-secondary focus-visible:text-secondary-foreground',
-        pathname === props.href && 'text-[#f3ff14]'
+        'py-2 hover:text-tripsYellow text-white md:text-2xl focus-visible:bg-secondary focus-visible:text-secondary-foreground',
+        pathname === props.href && 'text-tripsYellow'
       )}
     />
   );
@@ -45,16 +38,23 @@ export function LoginStatus() {
   const { data: session } = useSession();
 
   return (
-    <div className='absolute right-10 top-4 text-white z-50'>
+    <div className='py-2 right-10 top-4 text-white z-50 flex items-center gap-4'>
       {session ? (
         <>
+          {session.user.role === 'admin' && (
+            <Link
+              className='text-center text-white font-bold text-2xl hover:underline'
+              href='/dashboard'
+            >
+              <strong>Dashboard</strong>
+            </Link>
+          )}
           <p className=''>{session.user?.email}</p>
           <Link
             className='text-center text-white hover:underline'
             href='/'
             onClick={() => signOut({ callbackUrl: '/', redirect: true })}
           >
-            {' '}
             <strong>Sign Out</strong>
           </Link>
         </>
@@ -64,7 +64,6 @@ export function LoginStatus() {
           href='/'
           onClick={() => signIn()}
         >
-          {' '}
           <strong>Sign In</strong>
         </Link>
       )}

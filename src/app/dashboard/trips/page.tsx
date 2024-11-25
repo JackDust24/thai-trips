@@ -9,8 +9,9 @@ export default function DashboardTripsPage() {
       <div className='flex justify-between items-center gap-4'>
         <PageHeader>List of Trips</PageHeader>
         <p>
-          Please make sure you make trip{' '}
-          <strong>available for purchase!</strong>
+          Please make sure you make the trip available for purchase, by clicking{' '}
+          <span className='font-bold text-tripsBlue'>Activate</span> on the
+          Trip.
         </p>
         <Button asChild>
           <Link href='/dashboard/trips/add'>Add Trip</Link>

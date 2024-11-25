@@ -8,8 +8,6 @@ export async function GET(
     params: { downloadVerificationId },
   }: { params: { downloadVerificationId: string } }
 ) {
-  console.log('Request Params:', req, downloadVerificationId);
-
   const data = await db.downloadVerification.findUnique({
     where: { id: downloadVerificationId, expiresAt: { gt: new Date() } },
     select: { trip: { select: { tripDescPath: true, name: true } } },

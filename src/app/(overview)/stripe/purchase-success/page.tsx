@@ -45,7 +45,11 @@ export default async function SuccessPage({
           <div className='line-clamp-3 text-muted-foreground'>
             {trip.description}
           </div>
-          <Button className='mt-4' size='lg' asChild>
+
+          <div className='line-clamp-3 text-muted-foreground'>
+            Download your trip itenary - to be implemented
+          </div>
+          {/* <Button className='mt-4' size='lg' asChild>
             {isSuccess ? (
               <a
                 href={`/trips/download/${await createDownloadVerification(
@@ -57,7 +61,7 @@ export default async function SuccessPage({
             ) : (
               <Link href={`/trips/${trip.id}/purchase`}>Try Again</Link>
             )}
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>
@@ -65,12 +69,12 @@ export default async function SuccessPage({
 }
 
 async function createDownloadVerification(tripId: string) {
-  return (
-    await db.downloadVerification.create({
-      data: {
-        tripId,
-        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24),
-      },
-    })
-  ).id;
+  // return (
+  //   await db.downloadVerification.create({
+  //     data: {
+  //       tripId,
+  //       expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24),
+  //     },
+  //   })
+  // ).id;
 }

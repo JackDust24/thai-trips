@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { MAX_PERSONS_PER_TRIP } from '@/lib/consttants';
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 
 type CheckoutFormProps = {
   trip: {
@@ -59,8 +60,8 @@ export function CheckoutForm({ trip }: CheckoutFormProps) {
               Cost: {formatCurrency(amount)} &nbsp; {numPersons} persons
             </div>
             <DropdownMenu>
-              <DropdownMenuTrigger>
-                <button className='text-lg text-tripsBlue'>Add People</button>
+              <DropdownMenuTrigger asChild>
+                <Button variant='focused'>Add People</Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 {TRIP_ITEMS.map((number) => (

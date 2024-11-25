@@ -1,9 +1,13 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Roboto } from 'next/font/google';
 import './globals.css';
 import AuthProvider from './context/AuthProvider';
 
 const inter = Inter({ subsets: ['latin'] });
+const robtoto = Roboto({
+  subsets: ['latin'],
+  weight: '300',
+});
 
 export const metadata: Metadata = {
   title: 'Thai Trips App',
@@ -15,7 +19,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
+      <body className={robtoto.className}>
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

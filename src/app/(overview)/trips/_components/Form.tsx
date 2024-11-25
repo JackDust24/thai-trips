@@ -79,6 +79,15 @@ export function Form({
           <CardTitle>Trip Cost = {formatCurrency(priceInBaht)}</CardTitle>
           <CardDescription className='text-destructive'>
             {errorMessage && <div>{errorMessage}</div>}
+            <div className='text-blue-700'>
+              <p className='font-bold text-xl'>
+                This site is a currently a demo - no real payments.
+              </p>
+              <p className='font-semibold text-lg'>
+                Use 4242 4242 4242 4242 as the card number with any random
+                numbers for the rest of the fields.
+              </p>
+            </div>
           </CardDescription>
         </CardHeader>
         <CardContent>
